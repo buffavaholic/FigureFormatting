@@ -10,6 +10,7 @@ oneLabel = get(gca,'XLabel');
 labelSize = get(oneLabel,'FontSize');
 
  set(FigHand,'Units','inches');
+ set(FigHand,'PaperPositionMode','auto');
 posVals = get(FigHand,'Position');
 % Get font size for axes, titles, and legends using the last axes
 % axesSize = get(gca,'FontSize');
