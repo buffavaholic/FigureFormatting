@@ -49,9 +49,10 @@ fig = gcf;
 axesFontSize = 8;
 titleFontSize = 10;
 labelFontSize = 8;
+annotationFontSize = 14;
 % use 'changeFontSizes' subfunction to find all of each respective type and
 % change them to the desired size
-changeFontSizes(fig,axesFontSize,titleFontSize,labelFontSize)
+changeFontSizes(fig,axesFontSize,titleFontSize,labelFontSize,annotationFontSize)
 % set(findall(gcf,'-property','FontSize'),'FontSize',8)  % set all fonts to this
 % set(get(gcf,'Children'),'FontSize',10); % Font size of axes
 %% set line size/color
@@ -73,21 +74,37 @@ RBcmap = [0,0,0;1,0,0];
 
 end
 
-function changeFontSizes(hFig,axesSize,titleSize,labelSize)
+function changeFontSizes(hFig,axesSize,titleSize,labelSize,annotationSize)
 allAxes = findall(hFig,'type','axes');
 set(allAxes,'FontSize',axesSize)
 % Title font size
 allTitles= get(allAxes,'Title');
 if iscell(allTitles)
-    set(cell2mat(allTitles),'FontSize',titleSize)
+    for k = 1:length(allTitles)
+        set(allTitles{k},'FontSize',titleSize)
+    end
+%     set(cell2mat(allTitles),'FontSize',titleSize)
 else
     set(allTitles,'FontSize',titleSize)
+end
+% allAnnotation = findobj(allAxes,'-property','HeadStyle');
+allAnnotation = findobj(allAxes,'Tag','annotation');
+if iscell(allAnnotation)
+    for k = 1:length(allAnnotation)
+    set(allAnnotation{k},'FontSize',annotationSize)
+    end
+else
+    set(allAnnotation,'FontSize',annotationSize)
 end
 % Labels font size
 allLabels = get(allAxes,{'XLabel','YLabel'});
 if iscell(allLabels)
-    set(cell2mat(allLabels),'FontSize',labelSize)
+    for k = 1:length(allLabels)
+        set(allLabels{k},'FontSize',labelSize)
+    end
+%     set(cell2mat(allLabels),'FontSize',labelSize)
 else
     set(allLabels,'FontSize',labelSize)
 end
+
 end
